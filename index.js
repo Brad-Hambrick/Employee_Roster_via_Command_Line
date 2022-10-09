@@ -1,7 +1,6 @@
 //  Link required packages: inquirer, file system, generateMarkdown.js
 const inquirer = require('inquirer');
 const fs = require('fs');
-const getAnswers = require('./lib/generateEmployees');
 const getResponses = require('./lib/generateEmployees');
 
 const newEmpLoop = [];
@@ -19,7 +18,7 @@ const newEmpLoop = [];
         {
             type: 'input',
             message: 'What is the official title of the team leader?',
-            name: 'title',
+            name: 'leaderTitle',
         },
       
         {
@@ -40,15 +39,12 @@ const newEmpLoop = [];
             name: 'TLofficeNumber',
         },
 
-        {
-            type: 'checkbox',
-            message: 'Please select any licensing required for your project?',
-            name: 'licensing',
-            choices: ['MIT', 'Boost', 'ODbL'],
-        },
+       
+ 
     ]
 
-    const addEmployee = [
+    const pickNewEmployee = [
+
         {
             type: 'list',
             name: 'pickEmployee',
@@ -60,6 +56,7 @@ const newEmpLoop = [];
             ],
         },
     ]
+
 
     const engineerQuestions = [
         {
@@ -92,6 +89,7 @@ const newEmpLoop = [];
             message: 'what is the engineer\'s office number?',
             name: 'engOfficeNumber',
         },
+
     ]
 
     const internQuestions = [
@@ -125,6 +123,7 @@ const newEmpLoop = [];
             message: 'what is the engineer\'s office number?',
             name: 'internOfficeNumber',
         },
+
     ]
 
     
@@ -133,32 +132,92 @@ const newEmpLoop = [];
     function startQuestions() {
         return inquirer.prompt(leaderQuestions)
         .then((answers) => {
-            const leaderAnswers = getResponses.generatePage(answers);
-            return answers
+            makeChoice()
+            const leaderAnswers = getResponses.makeHomepage(answers); 
+            console.log(answers)
+            return answers 
         }) 
-    } if (leaderQuestions) {
-        addNewEmployee();
-    } 
-
-    function addNewEmployee() {
-        for(let i = 0; i<newEmpLoop.length; i++) {
-            newEmpLoop = i;
-        }
-        return inquirer.prompt(addEmployee)
-        .then((answers) => {
-            if (newEmpType == 'newEngineer') {
-                return inquirer.prompt(engineerQuestions)
-            } else if (newEmpType == 'newIntern'){
-                return inquirer.prompt(internQuestions)
-            } else {
-                console.log('Thank you for building your team')
-                process.exit;
-            }
-        }).then((answers) => {
-            const newEmpInfo = getResponses.generateCard(answers);
-            return answers
-        }) 
-   
     }
+
+    function makeChoice() {
+        if(answers) {
+            newEmployee();
+        }
+    }
+
+
+
+    function newEmployee() {
+        return inquirer.prompt(pickNewEmployee)
+        .then((answers) => {
+            if(answers.pickEmployee === 'newEngineer') {
+                newEngineer()
+             } else if (answers.pickEmployee === 'newIntern') {
+                newIntern()
+             } else {
+                createScript()
+             }
+        })
+    }
+
+        // function newEngineer() {
+        //     return inquirer.prompt(engineerQuestions)
+        //     .then((answers) => {
+        //         newEmployee()
+        //         const engineerAnswers = getResponses.makeHomepage(answers);
+        //         console.log(answers)
+        //         return answers    
+        //     })
+        // }
+
+        // function newIntern() {
+        //     return inquirer.prompt(internQuestions)
+        //     .then((answers) => {
+        //         newEmployee()
+        //         const internAnswers = getResponses.makeHomepage(answers);
+        //         console.log(answers)
+        //         return answers
+        //     })
+        // }
+
+        // function createScript() {
+        //     fs.writeFile('script.js', answers, (err)=>{
+        //         if(err){
+        //             console.log(err)
+        //         }
+        //         console.log('Your homepage has been successfully created')
+        //     })
+        // }
+
+
+
+
+
+
+
+    // } if (leaderQuestions) {
+    //     addNewEmployee();
+    // } 
+
+    // function addNewEmployee() {
+    //     for(let i = 0; i<newEmpLoop.length; i++) {
+    //         newEmpLoop = i;
+    //     }
+    //     return inquirer.prompt(addEmployee)
+    //     .then((answers) => {
+    //         if (newEmpType == 'newEngineer') {
+    //             return inquirer.prompt(engineerQuestions)
+    //         } else if (newEmpType == 'newIntern'){
+    //             return inquirer.prompt(internQuestions)
+    //         } else {
+    //             console.log('Thank you for building your team')
+    //             process.exit;
+    //         }
+    //     }).then((answers) => {
+    //         const newEmpInfo = getResponses.generateCard(answers);
+    //         return answers
+    //     }) 
+   
+     
 
     startQuestions();

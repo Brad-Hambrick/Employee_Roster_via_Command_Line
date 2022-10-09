@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+.header {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: blue;
+    padding: 5vh;
+    color: white;
+    text-align: center;
+    font-size:75px;
+}
+
+.empCard {
+    border: 1vh solid black;
+    margin-left: 20%;
+    margin-right: 20%;
+    background-color: rgb(245, 241, 241);
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.empName {
+    border-bottom: .5vh solid black;
+    background-color: rgb(95, 94, 94);
+    color: white;
+    padding: 2vh;
+}
