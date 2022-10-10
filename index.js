@@ -1,9 +1,14 @@
-//  Link required packages: inquirer, file system, generateMarkdown.js
+//  Link required packages
 const inquirer = require('inquirer');
 const fs = require('fs');
-const getResponses = require('./lib/generateEmployees');
-
-const newEmpLoop = [];
+const TeamLeader = require('./lib/TeamLeader');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const generatePage = require('./src/generatePage');
+const path = require('path');
+const dirOutput = path.resolve(__dirname, 'output')
+const joinPath = path.join(dirOutput, 'index.html');
+const team = [];
 
 
 //  Created an array of questions to call with inquirer
@@ -12,35 +17,26 @@ const newEmpLoop = [];
         {
             type: 'input',
             message: 'What is the name of the team leader?',
-            name: 'leaderName',
-        },
-
-        {
-            type: 'input',
-            message: 'What is the official title of the team leader?',
-            name: 'leaderTitle',
+            name: 'name',
         },
       
         {
             type: 'input',
             message: 'What is the team leader\'s employee id?',
-            name: 'TLemployeeID',
+            name: 'employeeId',
         },
 
         {
             type: 'input',
             message: 'What is the team leader\'s email address?',
-            name: 'TLemailAddress',
+            name: 'email',
         },
         
         {
             type: 'input',
             message: 'what is the team leader\'s office number?',
-            name: 'TLofficeNumber',
+            name: 'officeNumber',
         },
-
-       
- 
     ]
 
     const pickNewEmployee = [
@@ -49,11 +45,7 @@ const newEmpLoop = [];
             type: 'list',
             name: 'pickEmployee',
             message: 'Would you like to add an engineer or an intern to finish building?',
-            choices: [
-                { name: "Add a new engineer", value: "newEngineer"},
-                { name: "Add a new intern", value: "newIntern"},
-                { name: "Exit", value: "Exit"}
-            ],
+            choices: ['Add a new engineer', 'Add a new intern', 'Build my team'],
         },
     ]
 
@@ -62,32 +54,25 @@ const newEmpLoop = [];
         {
             type: 'input',
             message: 'What is the name of the engineer?',
-            name: 'engineerName',
-            value: `${newEmpLoop}`
-        },
-
-        {
-            type: 'input',
-            message: 'What is the engineer\'s official title?',
-            name: 'title',
+            name: 'name',
         },
       
         {
             type: 'input',
             message: 'What is the engineer\'s employee id?',
-            name: 'engEmpId',
+            name: 'employeeId',
         },
 
         {
             type: 'input',
             message: 'What is the engineer\'s email address?',
-            name: 'engEmailAddress',
+            name: 'email',
         },
         
         {
             type: 'input',
             message: 'what is the engineer\'s office number?',
-            name: 'engOfficeNumber',
+            name: 'officeNumber',
         },
 
     ]
@@ -95,33 +80,26 @@ const newEmpLoop = [];
     const internQuestions = [
         {
             type: 'input',
-            message: 'What is the name of the engineer?',
-            name: 'internName',
-            value: `${newEmpLoop}`
-        },
-
-        {
-            type: 'input',
-            message: 'What is the engineer\'s official title?',
-            name: 'title',
+            message: 'What is the name of the intern?',
+            name: 'name',
         },
       
         {
             type: 'input',
-            message: 'What is the engineer\'s employee id?',
-            name: 'internEmployeeId',
+            message: 'What is the intern\'s employee id?',
+            name: 'employeeId',
         },
 
         {
             type: 'input',
-            message: 'What is the engineer\'s email address?',
-            name: 'internEmailAddress',
+            message: 'What is the intern\'s email address?',
+            name: 'email',
         },
         
         {
             type: 'input',
-            message: 'what is the engineer\'s office number?',
-            name: 'internOfficeNumber',
+            message: 'what is the intern\'s office number?',
+            name: 'officeNumber',
         },
 
     ]
@@ -132,62 +110,58 @@ const newEmpLoop = [];
     function startQuestions() {
         return inquirer.prompt(leaderQuestions)
         .then((answers) => {
-            makeChoice()
-            const leaderAnswers = getResponses.makeHomepage(answers); 
-            console.log(answers)
-            return answers 
+            // console.log(answers);
+            console.log(team);
+            const leaderAnswers = new TeamLeader(answers.name, answers.employeeId, answers.email, answers.officeNumber);
+            team.push(leaderAnswers);
+            newEmployee();
         }) 
     }
 
-    function makeChoice() {
-        if(answers) {
-            newEmployee();
-        }
-    }
-
-
-
     function newEmployee() {
         return inquirer.prompt(pickNewEmployee)
+        .then(answers => {
+            switch (answers.pickEmployee) {
+                case 'Add a new engineer': newEngineer();
+                    break;
+                case 'Add a new intern': newIntern();
+                    break;
+                default: createTeam();
+            }
+        })
+    }
+debugger
+    function newIntern() {
+        return inquirer.prompt(internQuestions)
         .then((answers) => {
-            if(answers.pickEmployee === 'newEngineer') {
-                newEngineer()
-             } else if (answers.pickEmployee === 'newIntern') {
-                newIntern()
-             } else {
-                createScript()
-             }
+            // console.log(answers);
+            console.log(team);
+            const internAnswers = new Intern(answers.name, answers.employeeId, answers.email, answers.officeNumber);
+            team.push(internAnswers);
+            newEmployee();
         })
     }
 
-        // function newEngineer() {
-        //     return inquirer.prompt(engineerQuestions)
-        //     .then((answers) => {
-        //         newEmployee()
-        //         const engineerAnswers = getResponses.makeHomepage(answers);
-        //         console.log(answers)
-        //         return answers    
-        //     })
-        // }
+        function newEngineer() {
+            return inquirer.prompt(engineerQuestions)
+            .then((answers) => {
+                // console.log(answers);
+                console.log(team);
+                const engineerAnswers = new Engineer(answers.name, answers.employeeId, answers.email, answers.officeNumber);
+                team.push(engineerAnswers);
+                newEmployee();  
+            })
+        }
 
-        // function newIntern() {
-        //     return inquirer.prompt(internQuestions)
-        //     .then((answers) => {
-        //         newEmployee()
-        //         const internAnswers = getResponses.makeHomepage(answers);
-        //         console.log(answers)
-        //         return answers
-        //     })
-        // }
+        function createTeam() {
+            if (!fs.existsSync(dirOutput)) {
+                fs.mkdirSync(dirOutput)
+            }
+            fs.writeFileSync(joinPath, generatePage(team), 'utf-8')
+            console.log('Thanks for building your team')
+        }
 
-        // function createScript() {
-        //     fs.writeFile('script.js', answers, (err)=>{
-        //         if(err){
-        //             console.log(err)
-        //         }
-        //         console.log('Your homepage has been successfully created')
-        //     })
-        // }
+    startQuestions();
 
 
 
@@ -195,29 +169,8 @@ const newEmpLoop = [];
 
 
 
-    // } if (leaderQuestions) {
-    //     addNewEmployee();
-    // } 
-
-    // function addNewEmployee() {
-    //     for(let i = 0; i<newEmpLoop.length; i++) {
-    //         newEmpLoop = i;
-    //     }
-    //     return inquirer.prompt(addEmployee)
-    //     .then((answers) => {
-    //         if (newEmpType == 'newEngineer') {
-    //             return inquirer.prompt(engineerQuestions)
-    //         } else if (newEmpType == 'newIntern'){
-    //             return inquirer.prompt(internQuestions)
-    //         } else {
-    //             console.log('Thank you for building your team')
-    //             process.exit;
-    //         }
-    //     }).then((answers) => {
-    //         const newEmpInfo = getResponses.generateCard(answers);
-    //         return answers
-    //     }) 
+  
+   
    
      
 
-    startQuestions();

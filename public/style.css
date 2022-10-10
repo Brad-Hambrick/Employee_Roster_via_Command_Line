@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    background-color: lightgray;
+}
+
+.header {
+    margin-top: 0;
+    margin-bottom: 5vh;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: rgb(17, 124, 138);
+    padding: 1vh;
+    color: white;
+    text-align: center;
+    font-size:125px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.empCard {
+    width: 50%;
+    border: 1vh solid black;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    background-color: rgb(245, 241, 241);
+    font-size: 20px;
+    border-radius: 10px;
+   
+}
+
+.empName {
+    border-bottom: .5vh solid black;
+    background-color: rgb(95, 94, 94);
+    color: white;
+    padding: 2vh;
+    font-size: 2.5rem;
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.empTitle {
+    font-size: 1.5rem;    
+}
