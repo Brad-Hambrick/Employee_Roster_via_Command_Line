@@ -2,7 +2,7 @@
 This project will generate an employee roster containing their pertinent information with several additional features.
 
 ## GitHub Repository
-[Employee Roster via Command Line](https://brad-hambrick.github.io/Random_Password_Generator/)
+[Employee Roster via Command Line](https://github.com/Brad-Hambrick/Employee_Roster_via_Command_Line)
 
 ## Description
 This project was completed in order give users the ability to easy create a team roster using command line prompts generated via inquirer, node js, and object oriented programming.  
