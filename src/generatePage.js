@@ -34,7 +34,7 @@ const generateTeam = (team) => {
                 <ul class="listItems">
                     <li>Employee ID: ${intern.id}</li>
                     <li>Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
-                    <li>Office Number: ${intern.officeNumber}</li>
+                    <li>School: ${intern.school}</li>
                 </ul>
             </div>
         </div>
@@ -52,7 +52,7 @@ const generateTeam = (team) => {
                 <ul class="listItems">
                     <li>Employee ID: ${engineer.id}</li>
                     <li>Email: <a href="mailto:${engineer.email}">${engineer.email}</a></li>
-                    <li>Office Number: ${engineer.officeNumber}</li>
+                    <li>GitHub Username: <a href="https://github.com/${engineer.github}">${engineer.github}</a></li>
                 </ul>
             </div>
         </div>

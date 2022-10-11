@@ -1,12 +1,12 @@
 const Intern = require('../lib/Intern')
-const intern = new Intern('Brad', '909481', 'bradleyhambrick@gmail.com', '3723')
+const intern = new Intern('Brad', '909481', 'bradleyhambrick@gmail.com', 'Vanderbilt')
 
 
 test('test constructor values', () => {
     expect(intern.name).toBe('Brad');
     expect(intern.id).toBe('909481');
     expect(intern.email).toBe('bradleyhambrick@gmail.com');
-    expect(intern.officeNumber).toBe('3723');
+    expect(intern.school).toBe('Vanderbilt');
 });
 
 test('test getName() method', () => {
@@ -21,8 +21,8 @@ test('test getEmail() method', () => {
     expect(intern.getEmail()).toBe('bradleyhambrick@gmail.com');
 });
 
-test('test getOfficeNumber() method', () => {
-    expect(intern.getOfficeNumber()).toBe('3723');
+test('test getSchool() method', () => {
+    expect(intern.getSchool()).toBe('Vanderbilt');
 });
 
 test('test getRole() method', () => {

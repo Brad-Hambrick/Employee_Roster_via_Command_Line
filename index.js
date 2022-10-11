@@ -71,8 +71,8 @@ const team = [];
         
         {
             type: 'input',
-            message: 'what is the engineer\'s office number?',
-            name: 'officeNumber',
+            message: 'what is the engineer\'s GitHub username?',
+            name: 'github',
         },
 
     ]
@@ -98,8 +98,8 @@ const team = [];
         
         {
             type: 'input',
-            message: 'what is the intern\'s office number?',
-            name: 'officeNumber',
+            message: 'what is the intern\'s current school?',
+            name: 'school',
         },
 
     ]
@@ -136,7 +136,7 @@ debugger
         .then((answers) => {
             // console.log(answers);
             console.log(team);
-            const internAnswers = new Intern(answers.name, answers.employeeId, answers.email, answers.officeNumber);
+            const internAnswers = new Intern(answers.name, answers.employeeId, answers.email, answers.school);
             team.push(internAnswers);
             newEmployee();
         })
@@ -147,7 +147,7 @@ debugger
             .then((answers) => {
                 // console.log(answers);
                 console.log(team);
-                const engineerAnswers = new Engineer(answers.name, answers.employeeId, answers.email, answers.officeNumber);
+                const engineerAnswers = new Engineer(answers.name, answers.employeeId, answers.email, answers.github);
                 team.push(engineerAnswers);
                 newEmployee();  
             })
