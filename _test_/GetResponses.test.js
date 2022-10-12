@@ -1,3 +1,5 @@
+// Testing for GetResponses.js
+
 const getResponses = require('../lib/GetResponses')
 const getresponses = new getResponses('Brad', '909481', 'bradleyhambrick@gmail.com');
 

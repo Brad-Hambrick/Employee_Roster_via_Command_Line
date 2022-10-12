@@ -1,3 +1,5 @@
+// Testing for Intern.js
+
 const Intern = require('../lib/Intern')
 const intern = new Intern('Brad', '909481', 'bradleyhambrick@gmail.com', 'Vanderbilt')
 

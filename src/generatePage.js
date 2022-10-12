@@ -1,11 +1,14 @@
+// Import required classes
 const engineer = require("../lib/Engineer");
 const teamLeader = require("../lib/TeamLeader");
 const intern = require("../lib/Intern");
 
+// Function to generate the team member cards
 const generateTeam = (team) => {
     console.log(team)
+    // Empty array to push the different aspects of the html file into
     const homepage = [];
-
+    // Generate team leader card
     const generateTeamLeader = teamLeader => {
         let leaderHtml = `
         <div class="empCard">
@@ -23,7 +26,7 @@ const generateTeam = (team) => {
         `;
         homepage.push(leaderHtml);
     }
-
+    // Generate intern cards
     const generateIntern = intern => {
         let internHtml = `
         <div class="empCard">
@@ -41,7 +44,7 @@ const generateTeam = (team) => {
         `;
         homepage.push(internHtml);
     }
-
+    // Generate engineer cards
     const generateEngineer = engineer => {
         let engineerHtml = `
         <div class="empCard">
@@ -60,6 +63,7 @@ const generateTeam = (team) => {
         homepage.push(engineerHtml);
     }
 
+    // for loop in order to add multiple interns and engineers
     for (let i=0; i<team.length; i++) {
         if (team[i].getRole() === 'Team Leader') {
             generateTeamLeader(team[i]);
@@ -76,7 +80,7 @@ const generateTeam = (team) => {
     
 }
 
-
+// Function to generate the html file and add the team member cards into the main container
 module.exports = team => {
     return `
     <!DOCTYPE html>

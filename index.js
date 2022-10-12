@@ -1,4 +1,4 @@
-//  Link required packages
+//  Link required packages and classes
 const inquirer = require('inquirer');
 const fs = require('fs');
 const TeamLeader = require('./lib/TeamLeader');
@@ -11,8 +11,7 @@ const joinPath = path.join(dirOutput, 'index.html');
 const team = [];
 
 
-//  Created an array of questions to call with inquirer
-
+//  Create an array of questions for the team leader attributes
       const leaderQuestions =  [
         {
             type: 'input',
@@ -38,7 +37,7 @@ const team = [];
             name: 'officeNumber',
         },
     ]
-
+//  Create the menu after the team leader is generated to add engineers and interns
     const pickNewEmployee = [
 
         {
@@ -49,7 +48,7 @@ const team = [];
         },
     ]
 
-
+//  Create an array of questions for the engineer attributes
     const engineerQuestions = [
         {
             type: 'input',
@@ -77,6 +76,7 @@ const team = [];
 
     ]
 
+//  Create an array of questions for the intern attributes
     const internQuestions = [
         {
             type: 'input',
@@ -106,7 +106,7 @@ const team = [];
 
     
 
-// function in order to call inquirer prompts and then create the readme file
+// function in order to call inquirer prompts and then generate and push the responses
     function startQuestions() {
         return inquirer.prompt(leaderQuestions)
         .then((answers) => {
@@ -130,7 +130,7 @@ const team = [];
             }
         })
     }
-debugger
+
     function newIntern() {
         return inquirer.prompt(internQuestions)
         .then((answers) => {
@@ -160,7 +160,7 @@ debugger
             fs.writeFileSync(joinPath, generatePage(team), 'utf-8')
             console.log('Thanks for building your team')
         }
-
+// Call function to begin the prompts
     startQuestions();
 
 
